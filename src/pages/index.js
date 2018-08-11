@@ -9,11 +9,8 @@ const StyledLink = styled(Link)`
 `;
 
 const SmallContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  margin: auto;
+  max-width: 350px;
 `;
 
 const MainHeading = styled.h1`
