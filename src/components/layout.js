@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 
-// import './layout.css';
+import './layout.css';
 
 import favicon from '../images/favicon.png';
 

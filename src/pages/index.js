@@ -22,7 +22,7 @@ const MainHeading = styled.h1`
 
 const DescriptionText = styled.p`
   color: #ffffff;
-  max-width: 305px;
+  max-width: 285px;
 `;
 
 const IndexPage = () => (
