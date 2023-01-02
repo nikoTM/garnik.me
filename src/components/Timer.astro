@@ -1,0 +1,66 @@
+<div>
+  <h1 id="timer"></h1>
+</div>
+<style>
+  h1 {
+    font-weight: 600;
+    font-size: var(--font-size-lg);
+    margin: 0;
+  }
+</style>
+<script>
+  import confetti from 'js-confetti';
+
+  function secondsToHms(d: number) {
+    d = Number(d);
+    const h = Math.floor(d / 3600);
+    const m = Math.floor((d % 3600) / 60);
+    const s = Math.floor((d % 3600) % 60);
+
+    const hDisplay = h > 0 ? h + (h == 1 ? ' hour' : ' hours') : '';
+    const mDisplay = m > 0 ? m + (m == 1 ? ' minute' : ' minutes') : '';
+    const sDisplay = s > 0 ? s + (s == 1 ? ' second' : ' seconds') : '';
+    return [hDisplay, mDisplay, sDisplay].filter((v) => !!v).join(', ');
+  }
+
+  function confettify() {
+    const jsConfetti = new confetti();
+    let n = 0;
+    const interval = setInterval(() => {
+      if (n === 4) {
+        clearInterval(interval);
+      }
+      jsConfetti.addConfetti({
+        emojis: ['🌈', '💖', '🦄', '✨', '💫', '🌸']
+      });
+      jsConfetti.addConfetti({
+        confettiRadius: 6,
+        confettiColors: [
+          '#ff0a54',
+          '#ff477e',
+          '#ff7096',
+          '#ff85a1',
+          '#fbb1bd',
+          '#f9bec7'
+        ]
+      });
+      n++;
+    }, 1000);
+  }
+
+  const timer = document.getElementById('timer') as HTMLHeadingElement;
+  const arrivalTime = 1672849200000;
+  const interval = setInterval(() => {
+    const currentTime = new Date().getTime();
+
+    if (currentTime >= arrivalTime) {
+      timer.innerText = 'ARRIVED';
+      if (interval && document.hasFocus()) {
+        confettify();
+        clearInterval(interval);
+      }
+    } else {
+      timer.innerText = secondsToHms((arrivalTime - currentTime) / 1000);
+    }
+  }, 1000);
+</script>

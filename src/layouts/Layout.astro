@@ -1,0 +1,56 @@
+---
+import '@fontsource/work-sans/600.css';
+import '@fontsource/quattrocento-sans';
+
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props as Props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+    <style>
+      :root {
+        --font-size-base: clamp(1.16rem, 0.34vw + 0.91rem, 2rem);
+        --font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 2.6rem);
+        --font-size-lg: 1.5rem;
+
+        --color-text: hsl(10, 21%, 95%);
+        --color-bg: hsl(0, 0%, 20%);
+        --color-border: hsl(17, 24%, 90%);
+        --color-link: hsl(168, 70%, 37%);
+      }
+
+      html {
+        font-family: 'Work Sans', sans-serif;
+        font-size: var(--font-size-base);
+        color: var(--color-text);
+        background-color: var(--color-bg);
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      :global(h1) {
+        font-size: var(--font-size-xl);
+      }
+    </style>
+  </body>
+</html>

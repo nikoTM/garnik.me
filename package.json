@@ -1,38 +1,20 @@
 {
-  "name": "garnik.me",
-  "description": "A personal website",
-  "version": "1.0.0",
-  "dependencies": {
-    "gatsby": "^2.13.21",
-    "gatsby-image": "^2.2.6",
-    "gatsby-plugin-manifest": "^2.2.3",
-    "gatsby-plugin-offline": "^2.2.4",
-    "gatsby-plugin-react-helmet": "^3.1.2",
-    "gatsby-plugin-sharp": "^2.2.7",
-    "gatsby-source-filesystem": "^2.1.5",
-    "gatsby-transformer-sharp": "^2.2.3",
-    "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-helmet": "^5.2.1",
-    "babel-plugin-styled-components": "^1.5.1",
-    "gatsby-plugin-styled-components": "^3.1.2",
-    "gatsby-plugin-typography": "^1.7.19",
-    "react-typography": "^0.16.13",
-    "styled-components": "^3.4.2",
-    "typography": "^0.16.17",
-    "typography-theme-fairy-gates": "^0.15.11"
-  },
-  "license": "MIT",
+  "name": "@example/basics",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "format": "prettier --write src/**/*.{js,jsx}",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "devDependencies": {
-    "prettier": "^1.18.2"
+    "astro": "^1.0.8"
+  },
+  "dependencies": {
+    "@fontsource/quattrocento-sans": "^4.5.9",
+    "@fontsource/work-sans": "^4.5.11",
+    "js-confetti": "^0.11.0"
   }
 }
