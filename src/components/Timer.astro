@@ -50,6 +50,7 @@
 
   const timer = document.getElementById('timer') as HTMLHeadingElement;
   const arrivalTime = 1672849200000;
+  timer.innerText = secondsToHms((arrivalTime - new Date().getTime()) / 1000);
   const interval = setInterval(() => {
     const currentTime = new Date().getTime();
 
