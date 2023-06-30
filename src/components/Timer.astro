@@ -1,26 +1,63 @@
-<div>
-  <h1 id="timer"></h1>
+<div id="wrapper">
+  <h1 id="hours"></h1>
+  <h1 id="minutes"></h1>
+  <h1 id="seconds"></h1>
 </div>
 <style>
+  div {
+    display: inline-grid;
+    grid-template-columns: 1fr 0.8fr 1fr;
+    gap: 10px;
+    width: 40ch;
+    margin: auto;
+  }
+  div.arrived {
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
   h1 {
     font-weight: 600;
+    font-variant-numeric: tabular-nums;
     font-size: var(--font-size-lg);
-    margin: 0;
+    text-align: center;
+    grid-area: 1fr;
+  }
+
+  @media screen and (max-width: 550px) {
+    div {
+      grid-auto-flow: row;
+      grid-template-columns: auto;
+      grid-template-row: 1fr 0.8fr 1fr;
+      width: 20ch;
+    }
   }
 </style>
 <script>
   import confetti from 'js-confetti';
 
-  function secondsToHms(d: number) {
-    d = Number(d);
-    const h = Math.floor(d / 3600);
-    const m = Math.floor((d % 3600) / 60);
-    const s = Math.floor((d % 3600) % 60);
+  type HMS = {
+    hDisplay: string;
+    mDisplay: string;
+    sDisplay: string;
+  };
 
-    const hDisplay = h > 0 ? h + (h == 1 ? ' hour' : ' hours') : '';
-    const mDisplay = m > 0 ? m + (m == 1 ? ' minute' : ' minutes') : '';
-    const sDisplay = s > 0 ? s + (s == 1 ? ' second' : ' seconds') : '';
-    return [hDisplay, mDisplay, sDisplay].filter((v) => !!v).join(', ');
+  function secondsToHms(timestamp: number): HMS {
+    return {
+      hDisplay:
+        Math.floor(timestamp / 3600)
+          .toString()
+          .padStart(2, '0') + '\nhours',
+      mDisplay:
+        Math.floor((timestamp % 3600) / 60)
+          .toString()
+          .padStart(2, '0') + '\nminutes',
+      sDisplay:
+        Math.floor((timestamp % 3600) % 60)
+          .toString()
+          .padStart(2, '0') + '\nseconds'
+    };
   }
 
   function confettify() {
@@ -48,20 +85,33 @@
     }, 1000);
   }
 
-  const timer = document.getElementById('timer') as HTMLHeadingElement;
-  const arrivalTime = 1672849200000;
-  timer.innerText = secondsToHms((arrivalTime - new Date().getTime()) / 1000);
+  const hours = document.getElementById('hours') as HTMLHeadingElement;
+  const minutes = document.getElementById('minutes') as HTMLHeadingElement;
+  const seconds = document.getElementById('seconds') as HTMLHeadingElement;
+  const wrapper = document.getElementById('wrapper') as HTMLDivElement;
+
+  function setValues(hms: HMS) {
+    hours.innerText = hms.hDisplay;
+    minutes.innerText = hms.mDisplay;
+    seconds.innerText = hms.sDisplay;
+  }
+
+  const arrivalTime = 1690789500000;
+  setValues(secondsToHms((arrivalTime - Date.now()) / 1000));
+
   const interval = setInterval(() => {
-    const currentTime = new Date().getTime();
+    const currentTime = Date.now();
 
     if (currentTime >= arrivalTime) {
-      timer.innerText = 'ARRIVED';
+      wrapper.innerHTML = '<h1>ARRIVED</h1>';
+      wrapper.classList.add('arrived');
+
       if (interval && document.hasFocus()) {
         confettify();
         clearInterval(interval);
       }
     } else {
-      timer.innerText = secondsToHms((arrivalTime - currentTime) / 1000);
+      setValues(secondsToHms((arrivalTime - currentTime) / 1000));
     }
   }, 1000);
 </script>
